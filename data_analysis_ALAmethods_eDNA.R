@@ -1,5 +1,5 @@
-# data visualisation and analysis of species Nov 26 2021
-# R. Salis - prop
+# data visualisation and analysis for "Comparative analysis of environmental DNA metabarcoding and spectro-fluorescence for phytoplankton community assessments"
+# R. Salis 
 
 library(data.table)
 library(ggplot2)
@@ -13,7 +13,6 @@ library(RColorBrewer)
 library(plyr)
 library(scales)
 library(patchwork)
-
 
 asv_table1 <- fread("asv_table_eDNA1_18S_pr2_mesocosms_vs.csv")
 tax_table <- fread("tax_table_eDNA1_18S_pr2_mesocosms_vs.csv",header=TRUE)
@@ -83,9 +82,9 @@ dt_long_sp_algae_count_mesocosm <- dt_long_sp_algae_noz[, .(count = length(uniqu
 dt_long_sp_algae_count_algae <- dt_long_sp_algae_noz[, .(count = length(unique(ASV))), by=list(Algae)]
 
 #add 16S data
-asv_table16S1 <- fread("~/Library/CloudStorage/GoogleDrive-romana.salis@gmail.com/My Drive/LUND/Limnoscenes/Salis16S/asv_table_eDNA1_16S_noNEG_vs.csv")
-tax_table16S <- fread("~/Library/CloudStorage/GoogleDrive-romana.salis@gmail.com/My Drive/LUND/Limnoscenes/Salis16S/tax_table_eDNA1_16S_noNEG_vs.csv",header=TRUE)
-sample_data16S <- fread("~/Library/CloudStorage/GoogleDrive-romana.salis@gmail.com/My Drive/LUND/Limnoscenes/Salis16S/sample_data_eDNA1_16S_noNEG_vs.csv")
+asv_table16S1 <- fread("asv_table_eDNA1_16S_noNEG_vs.csv")
+tax_table16S <- fread("tax_table_eDNA1_16S_noNEG_vs.csv",header=TRUE)
+sample_data16S <- fread("sample_data_eDNA1_16S_noNEG_vs.csv")
 asv_table16S <- dcast(melt(asv_table16S1, id.vars = "V1"), variable ~ V1)
 dt_ASVsamp16S <- sample_data16S[asv_table16S, on = .(V1 = variable)]
 #convert to long format and retain only the variables want to keep
@@ -129,8 +128,8 @@ write.csv(dt_Algae_16S_18S, file= "table_normcount_algae.csv")
 
 
 #import ALA data to compare
-dt_ALA_averages <- fread("~/Library/CloudStorage/GoogleDrive-romana.salis@gmail.com/My Drive/LUND/Limnoscenes/methods_ms/ALA1_averages.csv")
-dt_temps <- fread("~/Library/CloudStorage/GoogleDrive-romana.salis@gmail.com/My Drive/LUND/Limnoscenes/methods_ms/temp_weeks_39.csv")
+dt_ALA_averages <- fread("ALA1_averages.csv")
+dt_temps <- fread("temp_weeks_39.csv")
 dt_temps_long <- data.table::melt(dt_temps,
                                   id.vars = c("sampling.week","AveTempC","AveTempH","Ave_tempdiff","DegreeWeeks","Ave_tempdiff_R"),
                                   measure.vars = patterns("^M"),
@@ -1189,7 +1188,7 @@ p_all <- ggplot(DT_full_long) +
   facet_grid(~factor(sampling.occasion))
 p_all
 ggsave("p_all.jpeg", width = 8, height = 5)
-ggsave("p_all.pdf", width = 8, height = 5)
+ggsave("p_all.pdf", width = 8, height = 5, dpi=300)
 
 
 
