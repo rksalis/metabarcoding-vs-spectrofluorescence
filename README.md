@@ -1,5 +1,6 @@
 # metabarcoding-vs-spectrofluorescence
-Datasets and R code for the manuscript titled "Comparative analysis of environmental DNA metabarcoding and spectro-fluorescence for phytoplankton community assessments"
+Datasets and R code for the manuscript titled "Comparative analysis of environmental DNA metabarcoding and spectro-fluorescence for phytoplankton community assessments" by Romana Salis and Lars-Anders Hansson.
+DOI: 10.1002/edn3.70097
 
 Sequence pre-processing:
 R code for pre-processing of sequence data: sequence_processing_16S.R and sequence_processing_18S.R
